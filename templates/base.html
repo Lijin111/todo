@@ -1,0 +1,38 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}我的任务清单{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse container">
+        <div class="navbar-header"><a class="navbar-brand" href="{{ url_for('show_todo_list') }}">任务清单</a></div>
+        <!--{% if "logged_in" in session %}-->
+        <!--<ul class="nav navbar-nav pull-right">-->
+            <!--<li><a class="btn" href="{{ url_for('logout') }}">logout</a></li>-->
+        <!--</ul>-->
+        <!--{% endif %}-->
+        {% if current_user.is_authenticated %}
+            <ul class="nav navbar-nav pull-right">
+                <li><a class="btn" href="{{ url_for('logout') }}">退出</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">close</span>
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% block page_content %} {% endblock %}
+    </div>
+{% endblock %}
+    <!--<script src="{{ url_for('static', filename='js/jquery.js', _external=True )}}"></script>-->
+    <!--<script src="{{ url_for('static', filename='js/bootstrap.js', _external=True )}}"></script>-->
+<!--</body>-->
+<!--</html>-->
